@@ -248,7 +248,7 @@ export default function Layout(props: ParentProps) {
           persistent: true,
           icon: "download",
           title: "Update available",
-          description: `A new version of OpenCode (${version}) is now available to install.`,
+          description: `A new version of Architect Agent (${version}) is now available to install.`,
           actions: [
             {
               label: "Install and restart",
@@ -1581,7 +1581,7 @@ export default function Layout(props: ParentProps) {
                 icon="help"
                 variant="ghost"
                 size="large"
-                onClick={() => platform.openLink("https://opencode.ai/desktop-feedback")}
+                onClick={() => platform.openLink("https://github.com/anomalyco/opencode/issues")}
               />
             </Tooltip>
           </div>
@@ -1712,7 +1712,7 @@ export default function Layout(props: ParentProps) {
                 <div class="rounded-md bg-background-base shadow-xs-border-base">
                   <div class="p-3 flex flex-col gap-2">
                     <div class="text-12-medium text-text-strong">Getting started</div>
-                    <div class="text-text-base">OpenCode includes free models so you can start immediately.</div>
+                    <div class="text-text-base">Architect Agent includes free models so you can start immediately.</div>
                     <div class="text-text-base">Connect any provider to use models, inc. Claude, GPT, Gemini etc.</div>
                   </div>
                   <Button

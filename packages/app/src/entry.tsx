@@ -37,7 +37,7 @@ const platform: Platform = {
       .then(() => {
         const notification = new Notification(title, {
           body: description ?? "",
-          icon: "https://opencode.ai/favicon-96x96.png",
+          icon: undefined, // Architect Agent by DLM
         })
         notification.onclick = () => {
           window.focus()

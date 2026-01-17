@@ -242,7 +242,7 @@ const createPlatform = (password: Accessor<string | null>): Platform => ({
       .then(() => {
         const notification = new Notification(title, {
           body: description ?? "",
-          icon: "https://opencode.ai/favicon-96x96.png",
+          icon: undefined, // Architect Agent by DLM
         })
         notification.onclick = () => {
           const win = getCurrentWindow()
@@ -322,8 +322,8 @@ render(() => {
         <ServerGate>
           {(data) => {
             setServerPassword(data().password)
-            window.__OPENCODE__ ??= {}
-            window.__OPENCODE__.serverPassword = data().password ?? undefined
+            window.__ARCHITECT__ ??= {}
+            window.__ARCHITECT__.serverPassword = data().password ?? undefined
 
             return <AppInterface defaultUrl={data().url} />
           }}
@@ -345,7 +345,10 @@ function ServerGate(props: { children: (data: Accessor<ServerReadyData>) => JSX.
       when={serverData.state !== "pending" && serverData()}
       fallback={
         <div class="h-screen w-screen flex flex-col items-center justify-center bg-background-base">
-          <Logo class="w-xl opacity-12 animate-pulse" />
+          <div class="flex flex-col items-center opacity-50 animate-pulse">
+            <div class="text-4xl font-bold text-text-strong tracking-tight">Architect</div>
+            <div class="text-xl font-light text-text-base tracking-widest uppercase">Agent</div>
+          </div>
           <div class="mt-8 text-14-regular text-text-weak">Initializing...</div>
         </div>
       }

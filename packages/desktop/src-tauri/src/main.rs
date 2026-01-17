@@ -59,5 +59,5 @@ fn main() {
         }
     }
 
-    opencode_lib::run()
+    architect_lib::run()
 }

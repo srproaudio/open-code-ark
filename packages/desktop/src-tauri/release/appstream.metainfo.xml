@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>ai.opencode.opencode</id>
+  <id>com.dlm.architect-agent</id>
 
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
 
-  <name>OpenCode</name>
-  <summary>Open source AI coding agent</summary>
+  <name>Architect Agent</name>
+  <summary>AI-powered development assistant</summary>
 
-  <developer id="ly.anoma">
-    <name>Anomaly Innovations Inc.</name>
+  <developer id="com.dlm">
+    <name>DLM</name>
   </developer>
 
   <description>
     <p>
-      OpenCode is an open source agent that helps you write and run code with any AI model.
+      Architect Agent is an AI-powered development assistant that helps you write and run code with any AI model.
     </p>
   </description>
 
-  <launchable type="desktop-id">ai.opencode.opencode.desktop</launchable>
+  <launchable type="desktop-id">com.dlm.architect-agent.desktop</launchable>
 
   <content_rating type="oars-1.1" />
 

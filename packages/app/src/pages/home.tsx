@@ -1,6 +1,6 @@
-import { createMemo, For, Match, Show, Switch } from "solid-js"
+import { createMemo, For, Match, Switch } from "solid-js"
 import { Button } from "@opencode-ai/ui/button"
-import { Logo } from "@opencode-ai/ui/logo"
+import { LogoSVG } from "@opencode-ai/ui/logo"
 import { useLayout } from "@/context/layout"
 import { useNavigate } from "@solidjs/router"
 import { base64Encode } from "@opencode-ai/util/encode"
@@ -54,12 +54,20 @@ export default function Home() {
   }
 
   return (
-    <div class="mx-auto mt-55 w-full md:w-auto px-4">
-      <Logo class="md:w-xl opacity-12" />
+    <div class="mx-auto mt-20 w-full md:w-auto px-4 max-w-xl">
+      {/* Logo / Branding */}
+      <div class="flex flex-col items-center">
+        <LogoSVG class="w-full max-w-md h-auto text-text-strong opacity-80" />
+        <p class="mt-4 text-text-weak text-sm uppercase tracking-wider text-center">
+          AI-Powered Development Assistant
+        </p>
+      </div>
+      
+      {/* Server status button */}
       <Button
         size="large"
         variant="ghost"
-        class="mt-4 mx-auto text-14-regular text-text-weak"
+        class="mt-6 mx-auto text-14-regular text-text-weak"
         onClick={() => dialog.show(() => <DialogSelectServer />)}
       >
         <div
@@ -72,6 +80,8 @@ export default function Home() {
         />
         {server.name}
       </Button>
+      
+      {/* Projects section */}
       <Switch>
         <Match when={sync.data.project.length > 0}>
           <div class="mt-20 w-full flex flex-col gap-4">
@@ -118,6 +128,22 @@ export default function Home() {
           </div>
         </Match>
       </Switch>
+      
+      {/* Powered by DLM badge - fixed position */}
+      <div class="fixed bottom-4 right-4 flex items-center gap-2 text-xs">
+        <span class="text-text-weak">Powered by</span>
+        <span 
+          class="font-bold text-sm"
+          style={{
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            "-webkit-background-clip": "text",
+            "-webkit-text-fill-color": "transparent",
+            "background-clip": "text",
+          }}
+        >
+          DLM
+        </span>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,4 @@
 import { TextField } from "@opencode-ai/ui/text-field"
-import { Logo } from "@opencode-ai/ui/logo"
 import { Button } from "@opencode-ai/ui/button"
 import { Component, Show } from "solid-js"
 import { createStore } from "solid-js/store"
@@ -42,7 +41,7 @@ function formatInitError(error: InitError): string {
   const data = error.data
   switch (error.name) {
     case "MCPFailed":
-      return `MCP server "${data.name}" failed. Note, opencode does not support MCP authentication yet.`
+      return `MCP server "${data.name}" failed. Note, Architect Agent does not support MCP authentication yet.`
     case "ProviderAuthError": {
       const providerID = typeof data.providerID === "string" ? data.providerID : "unknown"
       const message = typeof data.message === "string" ? data.message : safeJson(data.message)
@@ -204,7 +203,10 @@ export const ErrorPage: Component<ErrorPageProps> = (props) => {
   return (
     <div class="relative flex-1 h-screen w-screen min-h-0 flex flex-col items-center justify-center bg-background-base font-sans">
       <div class="w-2/3 max-w-3xl flex flex-col items-center justify-center gap-8">
-        <Logo class="w-58.5 opacity-12 shrink-0" />
+        <div class="flex flex-col items-center opacity-20 shrink-0">
+          <div class="text-5xl font-bold text-text-strong tracking-tight">Architect</div>
+          <div class="text-2xl font-light text-text-base tracking-widest uppercase">Agent</div>
+        </div>
         <div class="flex flex-col items-center gap-2 text-center">
           <h1 class="text-lg font-medium text-text-strong">Something went wrong</h1>
           <p class="text-sm text-text-weak">An error occurred while loading the application.</p>
@@ -239,14 +241,14 @@ export const ErrorPage: Component<ErrorPageProps> = (props) => {
         </div>
         <div class="flex flex-col items-center gap-2">
           <div class="flex items-center justify-center gap-1">
-            Please report this error to the OpenCode team
+            Please report this error to the Architect Agent team
             <button
               type="button"
               class="flex items-center text-text-interactive-base gap-1"
-              onClick={() => platform.openLink("https://opencode.ai/desktop-feedback")}
+              onClick={() => platform.openLink("https://github.com/anomalyco/opencode/issues")}
             >
-              <div>on Discord</div>
-              <Icon name="discord" class="text-text-interactive-base" />
+              <div>on GitHub</div>
+              <Icon name="github" class="text-text-interactive-base" />
             </button>
           </div>
           <Show when={platform.version}>
