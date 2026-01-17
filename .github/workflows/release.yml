@@ -17,7 +17,7 @@ jobs:
           - os: macos-latest
             target: aarch64-apple-darwin
             cli_target: opencode-darwin-arm64
-          - os: macos-13
+          - os: macos-latest
             target: x86_64-apple-darwin
             cli_target: opencode-darwin-x64
           - os: windows-latest
@@ -50,7 +50,7 @@ jobs:
 
       - name: Build Architect Agent CLI
         working-directory: packages/opencode
-        run: bun run build --single
+        run: bun run build
 
       - name: Prepare sidecar (Unix)
         if: runner.os != 'Windows'
