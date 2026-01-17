@@ -16,10 +16,13 @@ jobs:
         include:
           - os: macos-latest
             target: aarch64-apple-darwin
+            cli_target: opencode-darwin-arm64
           - os: macos-latest
             target: x86_64-apple-darwin
+            cli_target: opencode-darwin-x64
           - os: windows-latest
             target: x86_64-pc-windows-msvc
+            cli_target: opencode-windows-x64
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -40,13 +43,36 @@ jobs:
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: packages/desktop/src-tauri
+          shared-key: ${{ matrix.target }}
 
       - name: Install dependencies
         run: bun install
 
+      - name: Build OpenCode CLI
+        working-directory: packages/opencode
+        run: bun run build --single
+
+      - name: Prepare sidecar (Unix)
+        if: runner.os != 'Windows'
+        working-directory: packages/desktop
+        run: |
+          mkdir -p src-tauri/sidecars
+          cp ../opencode/dist/${{ matrix.cli_target }}/bin/opencode src-tauri/sidecars/opencode-cli-${{ matrix.target }}
+          chmod +x src-tauri/sidecars/opencode-cli-${{ matrix.target }}
+
+      - name: Prepare sidecar (Windows)
+        if: runner.os == 'Windows'
+        working-directory: packages/desktop
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path src-tauri/sidecars
+          Copy-Item ../opencode/dist/${{ matrix.cli_target }}/bin/opencode.exe src-tauri/sidecars/opencode-cli-${{ matrix.target }}.exe
+
       - name: Build OpenCode Desktop
         working-directory: packages/desktop
         run: bun tauri build --target ${{ matrix.target }}
+        env:
+          RUST_TARGET: ${{ matrix.target }}
 
       - name: Upload macOS artifacts
         if: runner.os == 'macOS'
@@ -55,7 +81,6 @@ jobs:
           name: macos-${{ matrix.target }}
           path: |
             packages/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
-            packages/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.app
 
       - name: Upload Windows artifacts
         if: runner.os == 'Windows'
